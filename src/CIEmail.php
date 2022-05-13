@@ -32,6 +32,18 @@ class CIEmail
 
   public function getMessage()
   {
-    // do nothing
+    $CI =& get_instance();
+
+    $msg = '';
+    if(isset($this->email_template_data['message'])){
+      $msg .= $this->email_template_data['message'];
+    }
+    if(isset($this->email_template_data['template'])){
+      $msg .= $CI->load->view($this->email_template_data['template'], $this->email_template_data['page_data'], true);
+    }
+    if(isset($this->email_template_data['footer'])){
+      $msg .= $CI->load->view($this->email_template_data['footer'],[], true);
+    }
+    return $msg;
   }
 }
