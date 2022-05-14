@@ -54,7 +54,7 @@ class CIEmail
     return $msg;
   }
 
-  public function send_email()
+  public function sendEmail()
   {
     $CI =& get_instance();
 
