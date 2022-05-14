@@ -53,4 +53,33 @@ class CIEmail
 
     return $msg;
   }
+
+  public function send_email()
+  {
+    $CI =& get_instance();
+
+    $to = $this->email_template_data['to'];
+    $subject = $this->email_template_data['subject'];
+    $from = $this->smtp_user;
+    $smtp_user_name = $this->smtp_user_name;
+
+    $msg = $this->getMessage();
+
+    $config = $this->config;
+
+    $CI->email->initialize($config);
+    $CI->email->set_newline("\r\n");
+    $CI->email->from($from, $smtp_user_name);
+    $CI->email->to($to);
+    $CI->email->subject($subject);
+    $CI->email->message($msg);
+
+    if ($CI->email->send()) {
+      // echo 'Your Email has successfully been sent.';
+      return 1;
+    }
+    else {
+      return $CI->email->print_debugger();
+    }
+  }
 }
