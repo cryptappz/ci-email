@@ -38,12 +38,19 @@ class CIEmail
     if(isset($this->email_template_data['message'])){
       $msg .= $this->email_template_data['message'];
     }
+
+    if(isset($this->email_template_data['header'])){
+      $msg .= $CI->load->view($this->email_template_data['header'], $this->email_template_data['page_data'], true);
+    }
+
     if(isset($this->email_template_data['template'])){
       $msg .= $CI->load->view($this->email_template_data['template'], $this->email_template_data['page_data'], true);
     }
+
     if(isset($this->email_template_data['footer'])){
-      $msg .= $CI->load->view($this->email_template_data['footer'],[], true);
+      $msg .= $CI->load->view($this->email_template_data['footer'], $this->email_template_data['page_data'], true);
     }
+
     return $msg;
   }
 }
